@@ -2,7 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>About</title>
+        {% if title %}
+            <title>BlogHub - {{ title }}</title>
+        {% else %}
+            <title>About</title>
+        {% endif %}
     </head>
     <body>
         <h1>BlogHub About</h1>
