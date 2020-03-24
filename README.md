@@ -155,7 +155,7 @@
     ```
 
 - To add model to admin-page:
-    ![](img/admin1.png)
+    ![](/home/maha/Documents/admin1.png)
     
     - Register your model in **blog/admin.py**:
         ```sh
@@ -164,7 +164,7 @@
             admin.site.register(Post)
         ```
         
-    ![](img/admin2.png)
+    ![](/home/maha/Documents/admin2.png)
     
 ## Shell:
 - To open python shell for debugging, testing, or investigation:
@@ -270,9 +270,36 @@
         Out[21]: <QuerySet [<Post: Blog 1>, <Post: Blog 2>, <Post: Blog 3>]>
 
     ```
+    
+## User Registeration:
+1. Create new **users** app:
+    ```sh
+        python manage.py startapp users
+    ```
+2. Add **users** to the **BlogHub/setting.py** --> **INSTALLED_APPS**:
+    ```sh
+        INSTALLED_APPS = [
+            'users.apps.UsersConfig',
+            ...
+        ]
+    ```
+3. Create **register view** in **users/views.py**: 
+    ```sh
+        from django.shortcuts import render
+        from django.contrib.auth.forms import  UserCreationForm
+
+
+        def users(request):
+            form = UserCreationForm()
+            return render(request, 'users/register.html', {'form': form})
+    ```
+
+
+
 ## Seach about these topics:
 - Magic functions (ex: def \__str__(self):)
 - Vertical column filter (ex: post.date_posted|date:"F d, Y" [Django Date Filter](https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date)
+- CSRF Tokens.
     
     
 
