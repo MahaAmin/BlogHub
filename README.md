@@ -155,7 +155,7 @@
     ```
 
 - To add model to admin-page:
-    ![](/home/maha/Documents/admin1.png)
+    ![](img/admin1.png)
     
     - Register your model in **blog/admin.py**:
         ```sh
@@ -164,7 +164,7 @@
             admin.site.register(Post)
         ```
         
-    ![](/home/maha/Documents/admin2.png)
+    ![](img/admin2.png)
     
 ## Shell:
 - To open python shell for debugging, testing, or investigation:
@@ -289,11 +289,63 @@
         from django.contrib.auth.forms import  UserCreationForm
 
 
-        def users(request):
-            form = UserCreationForm()
+        def register(request):
+            if request.method == 'POST':
+                form = UserCreationForm(request.POST)
+                if form.is_valid():
+                    username = form.cleaned_data.get('username')
+                    messages.success(request, f'Account created for { username }!')
+                    return redirect('blog-home')
+            else:
+                form = UserCreationForm()
             return render(request, 'users/register.html', {'form': form})
     ```
-
+4. Create **register.html** in **users/templates/users/**:
+    ```sh
+        {% extends 'blog/base.html' %}
+        {% block content %}
+                <div class="content-section">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Join Today</legend>
+                            {{ form.as_p }}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                        </div>
+                    </form>
+        
+                    <div class="border-top pt-3">
+                        <small class="text-mutted">
+                            Already Have An Account? <a class="ml-2" href="#">Sign In</a>
+                        </small>
+                    </div>
+                </div>
+        {% endblock content %}
+    ```
+5. Link a **url** to **register view** in **BlogHub/urls.py**:
+    ```sh
+        ...
+        from users import views as users_views
+        
+        urlpattern = [
+            ...
+            path('register/', users_views.register, name='register'),
+            ...
+        ]
+    ```
+    
+- Types of messages:
+    ```sh
+        from django.contrib import messages
+        
+        messages.debug
+        messages.info
+        messages.success
+        messages.warning
+        messages.error
+    ```
 
 
 ## Seach about these topics:
