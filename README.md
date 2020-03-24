@@ -352,7 +352,7 @@
 - Magic functions (ex: def \__str__(self):)
 - Vertical column filter (ex: post.date_posted|date:"F d, Y" [Django Date Filter](https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date)
 - CSRF Tokens.
-    
+- Class Meta
     
 
     
